@@ -8,6 +8,7 @@ import { uploadPayment } from "../../Functions/API/fetchPayment";
 export function ModalPayment({ id }) {
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState(undefined);
+  const [error, setError] = useState("");
   const [file, setFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,6 +34,7 @@ export function ModalPayment({ id }) {
     } catch (error) {
       console.log(error);
       setSuccess(false);
+      setError(error?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +68,7 @@ export function ModalPayment({ id }) {
                 </svg>
                 <div class="my-3 text-center">
                   <h3 className="text-danger">Upload Bukti Pembayaran Gagal</h3>
-                  <h4 className="alert alert-danger">uat ulang halaman dan coba beberapa saat lagi.</h4>
+                  <h4 className="alert alert-danger">{error}</h4>
                 </div>
               </div>
             ) : (
@@ -86,7 +88,7 @@ export function ModalPayment({ id }) {
             <Button variant="secondary" onClick={handleClose} disabled={isLoading}>
               Close
             </Button>
-            <Button variant="primary" type="submit" disabled={isLoading}>
+            <Button variant="primary" type="submit" disabled={isLoading || success !== undefined}>
               {isLoading ? "Menunggu..." : "Upload Bukti Pembayaran"}
             </Button>
           </Modal.Footer>

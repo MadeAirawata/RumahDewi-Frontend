@@ -6,7 +6,6 @@ import Modal from "react-bootstrap/Modal";
 import "/src/styles/admin/admin-orders.css";
 import { formatRupiah } from "../../Functions/libs/formatRupiah";
 import { useEffect, useState } from "react";
-import { changeStatus, getAllOrder } from "../../Functions/API/fetchOrder";
 import { addPayment, getMyPayment } from "../../Functions/API/fetchPayment";
 import { ModalPayment } from "./card-payments";
 import { getUserRooms } from "../../Functions/API/fetchRooms";

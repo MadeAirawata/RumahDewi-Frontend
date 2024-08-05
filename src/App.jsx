@@ -7,12 +7,9 @@ import { MainTemplate } from "./components/templates/main-template.jsx";
 import "./App.css";
 import { Login } from "./components/auth/login.jsx";
 import { Register } from "./components/auth/register.jsx";
-import { Checkout } from "./components/checkout/checkout.jsx";
-import { FindOrder } from "./components/orders/find-order.jsx";
-import { Order } from "./components/orders/order.jsx";
-import { AdminOrders } from "./components/admin/admin-orders.jsx";
 import { Rent } from "./components/rent/rent.jsx";
 import { Payments } from "./components/payments/payments.jsx";
+import { AdminPayments } from "./components/admin/admin-payments.jsx";
 
 function App() {
   return (
@@ -23,10 +20,7 @@ function App() {
         <Route path="/payments" element={<MainTemplate component={Payments} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/checkout" element={<MainTemplate component={Checkout} />} />
-        <Route path="/orders" element={<MainTemplate component={FindOrder} />} />
-        <Route path="/orders/:invoice" element={<MainTemplate component={Order} />} />
-        <Route path="/admin/orders" element={<MainTemplate component={AdminOrders} />} /> */}
+        <Route path="/admin/payments" element={<MainTemplate component={AdminPayments} />} />
       </Routes>
     </BrowserRouter>
   );

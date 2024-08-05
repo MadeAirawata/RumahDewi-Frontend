@@ -54,16 +54,3 @@ export async function getOrder(invoice, token) {
 //     throw error;
 //   }
 // }
-export async function changeStatus(id, data, token) {
-  try {
-    const response = await axios.put(`${url}/orders/status/${id}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
-}

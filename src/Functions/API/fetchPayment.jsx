@@ -44,6 +44,34 @@ export async function getMyPayment(query, token) {
   }
 }
 
+export async function getAllPayments(query, token) {
+  try {
+    const response = await axios.get(`${url}/payments/${query}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function changeStatus(id, data, token) {
+  try {
+    const response = await axios.put(`${url}/payments/${id}/status`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function uploadPayment(id, data, token) {
   try {
     const response = await axios.put(`${url}/payments/${id}/upload`, data, {
