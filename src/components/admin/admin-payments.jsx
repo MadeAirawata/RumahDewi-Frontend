@@ -104,7 +104,9 @@ export const AdminPayments = ({ user }) => {
                     </td>
                   </tr>
                 )}
-                {!isLoading && data && data?.length !== 0 ? (
+                {!isLoading &&
+                  data &&
+                  data?.length !== 0 &&
                   data?.map((item) => {
                     return (
                       <tr>
@@ -144,8 +146,8 @@ export const AdminPayments = ({ user }) => {
                         </td>
                       </tr>
                     );
-                  })
-                ) : (
+                  })}
+                {!isLoading && data && data?.length === 0 && (
                   <tr>
                     <td colSpan={8}>
                       <div className="alert alert-danger text-center w-full">Belum ada data pembayaran</div>

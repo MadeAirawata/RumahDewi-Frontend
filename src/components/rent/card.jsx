@@ -27,7 +27,7 @@ export const RentCard = ({ item }) => {
       total_month: month,
       room_id: item?.id,
     };
-
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
       const response = await rentRoom(token, data);
@@ -39,6 +39,8 @@ export const RentCard = ({ item }) => {
     } catch (error) {
       console.log(error);
       setError(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
