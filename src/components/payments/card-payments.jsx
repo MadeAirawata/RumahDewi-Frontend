@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import qris from "/src/assets/images/qris.png";
+import qris from "/src/assets/images/qris.jpeg";
 import "/src/styles/checkout/card-checkout.css";
 import { Modal } from "react-bootstrap";
 import { uploadPayment } from "../../Functions/API/fetchPayment";

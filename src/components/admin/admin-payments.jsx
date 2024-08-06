@@ -97,7 +97,7 @@ export const AdminPayments = ({ user }) => {
               <tbody>
                 {isLoading && (
                   <tr>
-                    <td colSpan={6} className="text-center">
+                    <td colSpan={8} className="text-center">
                       <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
@@ -147,7 +147,7 @@ export const AdminPayments = ({ user }) => {
                   })
                 ) : (
                   <tr>
-                    <td colSpan={6}>
+                    <td colSpan={8}>
                       <div className="alert alert-danger text-center w-full">Belum ada data pembayaran</div>
                     </td>
                   </tr>
