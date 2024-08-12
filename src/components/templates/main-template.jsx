@@ -44,15 +44,14 @@ export const MainTemplate = ({ component: Component }) => {
                   Home
                 </a>
               </li>
-
+              <li class="nav-item px-2">
+                <a class="nav-link rounded px-3 a-btn" href="/rent">
+                  Tipe Kamar
+                </a>
+              </li>
               {user ? (
                 user?.role == "USER" ? (
                   <>
-                    <li class="nav-item px-2">
-                      <a class="nav-link rounded px-3 a-btn" href="/rent">
-                        Sewa Kamar
-                      </a>
-                    </li>
                     <li class="nav-item px-2">
                       <a class="nav-link rounded px-3 a-btn" href="/payments">
                         Bayar Sewa

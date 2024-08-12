@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { addPayment, getMyPayment } from "../../Functions/API/fetchPayment";
 import { ModalPayment } from "./card-payments";
 import { getUserRooms } from "../../Functions/API/fetchRooms";
+import { formattingDate } from "../../Functions/libs/formatDate";
 export const Payments = ({ user }) => {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +70,7 @@ export const Payments = ({ user }) => {
               </button>
             </form>
           </div> */}
-          {!isLoading && !userRoom?.room_id && (
+          {!isLoading && !userRoom?.room && (
             <div colSpan={5} className="w-full alert alert-danger text-center">
               Belum ada kamar yang disewa saat ini
             </div>
@@ -85,6 +86,7 @@ export const Payments = ({ user }) => {
                   <th className="text-nowrap">Jumlah Bulan Sewa</th>
                   <th className="text-nowrap">Total Harga</th>
                   <th className="text-nowrap">Status Bayar</th>
+                  <th className="text-nowrap">Sewa Untuk</th>
                   <th className="text-nowrap">Bukti Bayar</th>
                 </tr>
               </thead>
@@ -108,6 +110,7 @@ export const Payments = ({ user }) => {
                         <td>{item?.total_month}</td>
                         <td>{formatRupiah(item?.total_payment)}</td>
                         <td>{item?.payment_image || item?.status == "DITOLAK" ? item?.status : "BELUM DIBAYAR"}</td>
+                        <td>{item?.rent_for ? formattingDate(item?.rent_for) : "BAYAR SEWA"}</td>
                         <td>
                           {item?.payment_image ? (
                             <a className="btn btn-success" href={item?.payment_image} target="_blank">
@@ -190,7 +193,7 @@ function AddModal({ userRoom, setShouldRefetch }) {
 
   return (
     <>
-      <button className="btn btn-primary" onClick={handleShow} disabled={!userRoom?.room_id}>
+      <button className="btn btn-primary" onClick={handleShow} disabled={!userRoom?.room}>
         Tambah Pembayaran
       </button>
       <Modal show={show} onHide={handleClose} size="lg">

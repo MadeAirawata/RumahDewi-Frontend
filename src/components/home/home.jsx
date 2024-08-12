@@ -6,12 +6,13 @@ import rumah3 from "../../assets/images/rumah3.jpg";
 import rumah4 from "../../assets/images/rumah4.jpg";
 import "../../styles/home/home.css";
 import { useEffect, useState } from "react";
+import ModalAturan from "./modal-aturan";
 export const Home = ({ user }) => {
   return (
     <div className="bg-success-subtle">
       {/* HEADER SECTION */}
       <div className="w-100 m-0 p-0">
-        <div className="row  m-0 p-3 p-lg-5">
+        <div className="row m-0 p-3 p-lg-5 align-items-center">
           <div className="col-lg-6">
             <img src={rumah} alt="Foto kost rumahdewi" className="img-fluid fit-img rounded border border-success" />
           </div>
@@ -21,7 +22,7 @@ export const Home = ({ user }) => {
               <p className="fw-semibold">Jl. Bukit Dharma Raya No.3, Jimbaran, Bali.</p>
 
               <hr className="text-success w-50" />
-              <p className="w-75">
+              <p className="aturan text-justify">
                 Kost Rumah Dewi merupakan sebuah rumah kos campur (untuk laki-laki dan perempuan) dengan total sebanyak 11 kamar. Kost Rumah Dewi memiliki fasilitas WI-FI, tempat tidur, lemari, kamar mandi dalam, serta tempat parkir untuk
                 kendaraan anda. Kost Rumah Dewi berlokasi di Jimbaran, Bali, berdekatan dengan:
               </p>
@@ -31,6 +32,9 @@ export const Home = ({ user }) => {
                 <li>15 menit menuju Kuta Beach.</li>
                 <li>30 menit menuju kota Denpasar.</li>
               </ul>
+              <a href="https://maps.app.goo.gl/gEos84YsTZEUzmff9" target="_blank" className="text-decoration-none fw-bold text-right">
+                Lihat di GoogleMaps &raquo;
+              </a>
               <hr className="text-success w-50" />
               <button
                 className="btn btn-success fw-bold fs-4"
@@ -46,6 +50,7 @@ export const Home = ({ user }) => {
               >
                 Pesan Kamar
               </button>
+              <ModalAturan />
             </div>
           </div>
         </div>

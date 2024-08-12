@@ -10,6 +10,7 @@ import { rentRoom } from "../../Functions/API/fetchPayment";
 export const RentCard = ({ item }) => {
   const [show, setShow] = useState(false);
   const [month, setMonth] = useState(1);
+  const [rent_for, setRentFor] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -18,7 +19,16 @@ export const RentCard = ({ item }) => {
     setError("");
     setSuccess("");
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.alert("Anda perlu login terlebih dahulu!");
+      window.location.href = "/login";
+      return;
+    }
+    setShow(true);
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -26,6 +36,7 @@ export const RentCard = ({ item }) => {
     const data = {
       total_month: month,
       room_id: item?.id,
+      rent_for: rent_for,
     };
     setIsLoading(true);
     try {
@@ -81,6 +92,26 @@ export const RentCard = ({ item }) => {
               </div>
               <div className="row m-0 p-0">
                 <div class="mb-3">
+                  <label for="rentfor" class="form-label">
+                    Sewa untuk tanggal berapa ?
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="rentfor"
+                    min={new Date().toISOString().split("T")[0]}
+                    value={rent_for}
+                    onChange={(e) => {
+                      setRentFor(e.target.value);
+                      setError("");
+                      setSuccess("");
+                    }}
+                    required
+                  ></input>
+                </div>
+              </div>
+              <div className="row m-0 p-0">
+                <div class="mb-3">
                   <label for="month" class="form-label">
                     Sewa untuk berapa bulan ?
                   </label>
@@ -99,7 +130,27 @@ export const RentCard = ({ item }) => {
                   ></input>
                 </div>
               </div>
-
+              <div class="accordion mb-3" id="accordionExample">
+                <div class="accordion-item border border-primary-subtle">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Fasilitas Kamar
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <ul class="list-group border border-primary-subtle">
+                        <li class="list-group-item list-group-item-action lists-hover">WIFI</li>
+                        <li class="list-group-item list-group-item-action lists-hover">KAMAR MANDI DALAM</li>
+                        <li class="list-group-item list-group-item-action lists-hover">DAPUR DALAM</li>
+                        <li class="list-group-item list-group-item-action lists-hover">TEMPAT TIDUR</li>
+                        <li class="list-group-item list-group-item-action lists-hover">LEMARI</li>
+                        <li class="list-group-item list-group-item-action lists-hover">PARKIR KENDARAAN</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="d-flex flex-column align-items-end">
                 <p className="fs-4 fw-semibold">Total Bayar</p>
                 <p className="fs-4 fw-semibold">{formatRupiah(month * item?.monthly_price)}</p>

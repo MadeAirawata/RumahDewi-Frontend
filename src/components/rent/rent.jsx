@@ -5,6 +5,7 @@ import { RentCard } from "./card";
 import rumah4 from "../../assets/images/rumah4.jpg";
 import "../../styles/rent/rent.css";
 import { formatRupiah } from "../../Functions/libs/formatRupiah";
+import { formattingDate } from "../../Functions/libs/formatDate";
 
 export const Rent = ({ user }) => {
   const [rooms, setRooms] = useState();
@@ -13,25 +14,16 @@ export const Rent = ({ user }) => {
 
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    window.alert("Anda perlu login terlebih dahulu! ");
-    window.location.href = "/login";
-  }
-
-  if (user) {
-    if (user?.role !== "USER") {
-      window.location.href = "/";
-    }
-  }
-
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);
       try {
-        const fetchRooms = await getRooms(token);
-        const fetchUserRooms = await getUserRooms(token);
+        const fetchRooms = await getRooms();
         setRooms(fetchRooms?.data?.data?.rooms);
-        setUserRoom(fetchUserRooms?.data?.data?.user_room);
+        if (token) {
+          const fetchUserRooms = await getUserRooms(token);
+          setUserRoom(fetchUserRooms?.data?.data?.user_room);
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,14 +35,14 @@ export const Rent = ({ user }) => {
 
   return (
     <div className="d-flex flex-column align-items-center  m-0 p-0">
-      <h1 className="mt-2">{userRoom?.room_id ? "Informasi Kamar" : "Pilih Kamar"}</h1>
+      <h1 className="mt-2">{userRoom?.room ? "Informasi Kamar" : "Pilih Kamar"}</h1>
       <div className="w-100  p-2 p-lg-5">
         <div className={`w-100 text-center d-flex align-items-center ${isLoading ? "justify-content-center" : ""} overflow-x-auto bg-success-subtle pb-3`}>
-          {rooms && !isLoading && !userRoom?.room_id ? (
+          {rooms && !isLoading && !userRoom?.room ? (
             rooms.map((item) => {
               return <RentCard item={item} />;
             })
-          ) : userRoom?.room_id ? (
+          ) : userRoom?.room ? (
             <div className="row w-full  mx-2 mx-lg-5">
               <img className="col-lg-7 w-full bg-black m-0 p-0 img-fluid" src={rumah4} />
               <div className="col-lg-5 w-full bg-white p-3">
@@ -83,12 +75,22 @@ export const Rent = ({ user }) => {
                   <div className="row m-0 p-0 text-start">
                     <div class="mb-3">
                       <label for="status" class="form-label fw-bold">
-                        Masa Berlaku Sewa
+                        Tanggal mulai sewa
                       </label>
-                      <input type="text" class="form-control" id="status" value={userRoom?.due_date ? new Date(userRoom?.due_date).toLocaleString() : "MENUNGGU PEMBAYARAN"} disabled></input>
+                      <input type="text" class="form-control" id="status" value={userRoom?.occupied_since ? formattingDate(userRoom?.occupied_since) : "MENUNGGU PEMBAYARAN"} disabled></input>
                     </div>
                   </div>
-                  {userRoom?.room_id && !userRoom?.due_date && <div className="text-danger">Note : Kamar belum sepenuhnya disewa oleh anda. Mohon segera selesaikan proses pembayaran untuk sepenuhnya menyewa kamar.</div>}
+                  <div className="row m-0 p-0 text-start">
+                    <div class="mb-3">
+                      <label for="status" class="form-label fw-bold">
+                        Masa Berlaku Sewa
+                      </label>
+                      <input type="text" class="form-control" id="status" value={userRoom?.due_date ? formattingDate(userRoom?.due_date) : "MENUNGGU PEMBAYARAN"} disabled></input>
+                    </div>
+                  </div>
+                  {userRoom?.room && !userRoom?.due_date && (
+                    <div className="text-danger text-start">Note : Pembayaran harus diselesaikan maksimal 1x24 jam atau kamar yang dipesan akan direset kembali. Mohon selesaikan pembayaran dengan mengupload bukti bayar.</div>
+                  )}
                   <a href="/payments" className="btn btn-success mt-3">
                     Bayar Sewa
                   </a>

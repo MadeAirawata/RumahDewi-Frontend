@@ -5,6 +5,7 @@ import { checkPassword, checkPhone } from "../../Functions/libs/regex";
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const [file, setFile] = useState();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -21,13 +22,21 @@ export const Register = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await register({ email, phone, name, password });
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("name", name);
+      formData.append("password", password);
+
+      const response = await register(formData);
 
       setSuccess(response.data.message);
       setIsLoading(false);
-      setUsername("");
-      setPassword("");
       setName("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
       setTimeout(() => {
         window.location.href = "/login";
       }, 3000);
@@ -38,8 +47,8 @@ export const Register = () => {
   };
 
   return (
-    <div className="vw-100 min-vh-100 bg-success-subtle m-0 p-0 d-flex justify-content-center align-items-center">
-      <Card style={{ width: "33rem" }} className="shadow mx-4">
+    <div className="min-vh-100 bg-success-subtle m-0 p-0 d-flex justify-content-center align-items-center">
+      <Card style={{ width: "33rem" }} className="shadow mx-4 my-5">
         <Card.Body className="mx-md-5 mx-3 mb-5">
           <Card.Title className="text-center fs-3 fw-bold my-4">Daftar</Card.Title>
           <form onSubmit={onSubmit}>
@@ -102,6 +111,25 @@ export const Register = () => {
                   setError("");
                 }}
               />
+            </div>
+            <div class="mb-3">
+              <label for="identity" class="form-label">
+                Foto KTP
+              </label>
+              <input
+                type="file"
+                class="form-control"
+                id="identity"
+                accept="image/*"
+                required
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                  setError("");
+                }}
+              />
+              <div id="note" class="form-text">
+                Foto ktp akan digunakan untuk mengidentifikasi anda
+              </div>
             </div>
             <label for="password" class="form-label">
               Password

@@ -7,6 +7,7 @@ import "/src/styles/admin/admin-orders.css";
 import { formatRupiah } from "../../Functions/libs/formatRupiah";
 import { useEffect, useState } from "react";
 import { changeStatus, getAllPayments } from "../../Functions/API/fetchPayment";
+import { formattingDate, formattingDateWithHour } from "../../Functions/libs/formatDate";
 export const AdminPayments = ({ user }) => {
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -87,6 +88,7 @@ export const AdminPayments = ({ user }) => {
                   <th className="text-nowrap">Nama</th>
                   <th className="text-nowrap">Email</th>
                   <th className="text-nowrap">Telepon</th>
+                  <th className="text-nowrap">Tanggal Masuk</th>
                   <th className="text-nowrap">Total Harga</th>
                   <th className="text-nowrap">Jumlah Bulan</th>
                   <th className="text-nowrap">Bukti Bayar</th>
@@ -113,9 +115,10 @@ export const AdminPayments = ({ user }) => {
                         <td>{item?.user?.name}</td>
                         <td>{item?.user?.email}</td>
                         <td>{item?.user?.phone}</td>
+                        <td>{item?.user?.occupied_since ? formattingDate(item?.user?.occupied_since) : ""}</td>
                         <td>{formatRupiah(item?.total_payment)}</td>
-                        <td>{item?.total_month}</td>
-                        <td>
+                        <td className="text-center">{item?.total_month}</td>
+                        <td className="text-center">
                           {item?.payment_image ? (
                             <a className="btn btn-primary" href={item?.payment_image} target="_blank">
                               Lihat
@@ -227,7 +230,31 @@ function ShowModal({ item, setItem }) {
                       <label for="no-room" class="form-label">
                         Nomor Kamar
                       </label>
-                      <input type="text" class="form-control" id="no-room" disabled value={item?.user?.my_room?.room?.no_room || "BELUM ADA KAMAR"}></input>
+                      <input type="text" class="form-control" id="no-room" disabled value={item?.room?.no_room || "BELUM ADA KAMAR"}></input>
+                    </div>
+                  </div>
+                  <div className="row m-0 p-0">
+                    <div class="mb-3 col-md-6 ">
+                      <label for="no-room" class="form-label">
+                        Status Penghuni
+                      </label>
+                      <input type="text" class="form-control" id="no-room" disabled value={item?.user?.status || "BELUM ADA KAMAR"}></input>
+                    </div>
+                    <div class="mb-3 col-md-6 ">
+                      <label for="no-room" class="form-label">
+                        Tanggal Masuk
+                      </label>
+                      <input type="text" class="form-control" id="no-room" disabled value={item?.user?.occupied_since ? formattingDate(item?.user?.occupied_since) : ""}></input>
+                    </div>
+                  </div>
+                  <div className="row m-0 p-0">
+                    <div class="mb-3 col-md-6 ">
+                      <label for="no-room" class="form-label">
+                        Foto Identitas
+                      </label>
+                      <a className="btn btn-success d-block" href={item?.user?.identity} target="_blank">
+                        Lihat
+                      </a>
                     </div>
                   </div>
                   <div className="row m-0 p-0">
@@ -256,16 +283,22 @@ function ShowModal({ item, setItem }) {
                       <label for="" class="form-label">
                         Tanggal Pembayaran
                       </label>
-                      <input type="text" class="form-control" disabled value={new Date(item?.createdAt).toLocaleString()}></input>
+                      <input type="text" class="form-control" disabled value={formattingDateWithHour(item?.createdAt)}></input>
                     </div>
                   </div>
                   <div className="row m-0 p-0">
+                    <div class="mb-3 col-md-6">
+                      <label for="" class="form-label">
+                        Disewa Untuk
+                      </label>
+                      <input type="text" class="form-control" disabled value={item?.rent_for ? formattingDate(item?.rent_for) : "BAYAR SEWA"}></input>
+                    </div>
                     {item?.payment_image && (
                       <div class="mb-3 col-md-6 ">
                         <label for="bukti" class="form-label">
                           Bukti Pembayaran
                         </label>
-                        <a className="btn btn-primary d-block" href={item?.payment_image} target="_blank">
+                        <a className="btn btn-success d-block" href={item?.payment_image} target="_blank">
                           Lihat Bukti
                         </a>
                       </div>
