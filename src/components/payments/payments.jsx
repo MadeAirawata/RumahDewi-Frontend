@@ -93,7 +93,7 @@ export const Payments = ({ user }) => {
               <tbody>
                 {isLoading && (
                   <tr>
-                    <td colSpan={5} className="text-center">
+                    <td colSpan={6} className="text-center">
                       <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
@@ -124,7 +124,7 @@ export const Payments = ({ user }) => {
                     );
                   })}
                 {!isLoading && data?.length == 0 && (
-                  <td colSpan={5} className="w-full alert alert-danger text-center">
+                  <td colSpan={6} className="w-full alert alert-danger text-center">
                     Tidak ada data yang ditemukan
                   </td>
                 )}
