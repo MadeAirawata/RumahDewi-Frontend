@@ -14,6 +14,12 @@ export const Rent = ({ user }) => {
 
   const token = localStorage.getItem("token");
 
+  if (user) {
+    if (user?.role === "ADMIN") {
+      window.location.href = "/";
+    }
+  }
+
   useEffect(() => {
     const fetch = async () => {
       setIsLoading(true);
