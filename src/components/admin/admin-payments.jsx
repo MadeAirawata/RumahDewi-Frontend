@@ -250,6 +250,12 @@ function ShowModal({ item, setItem }) {
                   <div className="row m-0 p-0">
                     <div class="mb-3 col-md-6 ">
                       <label for="no-room" class="form-label">
+                        Jatuh tempo
+                      </label>
+                      <input type="text" class="form-control" id="no-room" disabled value={item?.user?.due_date ? formattingDate(item?.user?.due_date) : ""}></input>
+                    </div>
+                    <div class="mb-3 col-md-6 ">
+                      <label for="no-room" class="form-label">
                         Foto Identitas
                       </label>
                       <a className="btn btn-success d-block" href={item?.user?.identity} target="_blank">

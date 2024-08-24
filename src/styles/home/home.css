@@ -21,6 +21,10 @@
   object-position: 0 20%;
 }
 
+.card-home {
+  justify-content: center;
+}
+
 /* LG */
 @media (max-width: 992px) {
   .carousel {
@@ -37,5 +41,9 @@
   .carousel-img {
     height: 300px;
     object-position: initial;
+  }
+
+  .card-home {
+    justify-content: left;
   }
 }

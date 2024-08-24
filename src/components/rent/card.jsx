@@ -130,7 +130,7 @@ export const RentCard = ({ item }) => {
                   ></input>
                 </div>
               </div>
-              <div class="accordion mb-3" id="accordionExample">
+              <div class="accordion" id="accordionExample">
                 <div class="accordion-item border border-primary-subtle">
                   <h2 class="accordion-header">
                     <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -140,17 +140,27 @@ export const RentCard = ({ item }) => {
                   <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                       <ul class="list-group border border-primary-subtle">
+                        <li class="list-group-item list-group-item-action lists-hover">
+                          Lebar Kamar <span className="text-success fw-bold">4X5 Meter</span>
+                        </li>
                         <li class="list-group-item list-group-item-action lists-hover">WIFI</li>
-                        <li class="list-group-item list-group-item-action lists-hover">KAMAR MANDI DALAM</li>
-                        <li class="list-group-item list-group-item-action lists-hover">DAPUR DALAM</li>
-                        <li class="list-group-item list-group-item-action lists-hover">TEMPAT TIDUR</li>
-                        <li class="list-group-item list-group-item-action lists-hover">LEMARI</li>
-                        <li class="list-group-item list-group-item-action lists-hover">PARKIR KENDARAAN</li>
+                        <li class="list-group-item list-group-item-action lists-hover">
+                          Kamar Mandi Dalam <span className="text-success fw-bold">1.5x1.5 Meter</span>
+                        </li>
+                        <li class="list-group-item list-group-item-action lists-hover">
+                          Dapur Dalam <span className="text-success fw-bold">1.5x1.5 Meter</span>
+                        </li>
+                        <li class="list-group-item list-group-item-action lists-hover">Tempat Tidur</li>
+                        <li class="list-group-item list-group-item-action lists-hover">Lemari</li>
+                        <li class="list-group-item list-group-item-action lists-hover">
+                          Parkir Kendaraan <span className="text-danger fw-bold">(KHUSUS MOTOR)</span>
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
+              <span className="text-danger mb-3">Semua fasilitas sudah termasuk dalam sewa bulanan</span>
               <div className="d-flex flex-column align-items-end">
                 <p className="fs-4 fw-semibold">Total Bayar</p>
                 <p className="fs-4 fw-semibold">{formatRupiah(month * item?.monthly_price)}</p>

@@ -36,20 +36,9 @@ export const Home = ({ user }) => {
                 Lihat di GoogleMaps &raquo;
               </a>
               <hr className="text-success w-50" />
-              <button
-                className="btn btn-success fw-bold fs-4"
-                onClick={() => {
-                  const token = localStorage.getItem("token");
-                  if (token) {
-                    window.location.href = "/rent";
-                    return;
-                  }
-                  window.alert("Anda perlu login terlebih dahulu");
-                  window.location.href = "/login";
-                }}
-              >
+              <a className="btn btn-success fw-bold fs-4" href="/rent">
                 Pesan Kamar
-              </button>
+              </a>
               <ModalAturan />
             </div>
           </div>
@@ -69,25 +58,25 @@ export const Home = ({ user }) => {
             <Carousel.Item>
               <img className="d-block w-100 fit-img carousel-img rounded" src={rumah1} alt="Second slide" />
               <Carousel.Caption>
-                <h3 className="fw-bold text-dark bg-success-subtle rounded">Halaman Rumah Kost</h3>
+                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar Bagian Luar</h3>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img className="d-block w-100 fit-img carousel-img rounded" src={rumah2} alt="Third slide" />
               <Carousel.Caption>
-                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar Bagian luar</h3>
+                <h3 className="fw-bold text-dark bg-success-subtle rounded">Halaman Rumah Kost</h3>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img className="d-block w-100 fit-img carousel-img rounded" src={rumah3} alt="Third slide" />
               <Carousel.Caption>
-                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar bagian dalam</h3>
+                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar Mandi Dalam</h3>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img className="d-block w-100 fit-img carousel-img rounded" src={rumah4} alt="Third slide" />
               <Carousel.Caption>
-                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar mandi dalam</h3>
+                <h3 className="fw-bold text-dark bg-success-subtle rounded">Kamar Bagian Dalam</h3>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
@@ -96,33 +85,62 @@ export const Home = ({ user }) => {
       {/* CARD */}
       <h1 className="mt-5 fs-1 fw-bold text-center">Fitur Website</h1>
       <div className="w-100  p-2 p-lg-5">
-        <div className="w-100 text-center d-flex align-items-center overflow-x-auto bg-success-subtle pb-3">
-          <Card className="shadow mx-4 card-style">
-            <div style={{ height: "200px" }}>
-              <svg width="200px" height="200px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <path d="M589.3 260.9v30H371.4v-30H268.9v513h117.2v-304l109.7-99.1h202.1V260.9z" fill="#e1ffe2" />
-                <path d="M516.1 371.1l-122.9 99.8v346.8h370.4V371.1z" fill="#e1ffe2" />
-                <path d="M752.7 370.8h21.8v435.8h-21.8z" fill="#44b156" />
-                <path d="M495.8 370.8h277.3v21.8H495.8z" fill="#44b156" />
-                <path d="M495.8 370.8h21.8v124.3h-21.8z" fill="#44b156" />
-                <path d="M397.7 488.7l-15.4-15.4 113.5-102.5 15.4 15.4z" fill="#44b156" />
-                <path d="M382.3 473.3h135.3v21.8H382.3z" fill="#44b156" />
-                <path d="M382.3 479.7h21.8v348.6h-21.8zM404.1 806.6h370.4v21.8H404.1z" fill="#44b156" />
-                <path d="M447.7 545.1h261.5v21.8H447.7zM447.7 610.5h261.5v21.8H447.7zM447.7 675.8h261.5v21.8H447.7z" fill="#6de87b" />
-                <path d="M251.6 763h130.7v21.8H251.6z" fill="#44b156" />
-                <path d="M251.6 240.1h21.8v544.7h-21.8zM687.3 240.1h21.8v130.7h-21.8zM273.4 240.1h108.9v21.8H273.4z" fill="#44b156" />
-                <path d="M578.4 240.1h130.7v21.8H578.4zM360.5 196.5h21.8v108.9h-21.8zM382.3 283.7h196.1v21.8H382.3zM534.8 196.5h65.4v21.8h-65.4z" fill="#44b156" />
-                <path d="M360.5 196.5h65.4v21.8h-65.4zM404.1 174.7h152.5v21.8H404.1zM578.4 196.5h21.8v108.9h-21.8z" fill="#44b156" />
-              </svg>
-            </div>
-            <Card.Body className="d-flex flex-column justify-content-between align-items-center">
-              <Card.Title className="fs-3 fw-bold">Pelaporan Masalah</Card.Title>
-              <Card.Text>Pelaporan untuk penghuni kos jika ada kendala yang perlu disampaikan kepada pemilik rumah kos.</Card.Text>
-              <a href={user ? (user?.role === "USER" ? "https://forms.gle/JEL88wRmr75YEt959" : "") : "/login"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
-                Klik Disini
-              </a>
-            </Card.Body>
-          </Card>
+        <div className={`w-100 text-center d-flex align-items-center overflow-x-auto bg-success-subtle pb-3 ${user ? "" : "card-home"}`}>
+          {user && (
+            <>
+              <Card className="shadow mx-4 card-style">
+                <div style={{ height: "200px" }}>
+                  <svg width="200px" height="200px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M589.3 260.9v30H371.4v-30H268.9v513h117.2v-304l109.7-99.1h202.1V260.9z" fill="#e1ffe2" />
+                    <path d="M516.1 371.1l-122.9 99.8v346.8h370.4V371.1z" fill="#e1ffe2" />
+                    <path d="M752.7 370.8h21.8v435.8h-21.8z" fill="#44b156" />
+                    <path d="M495.8 370.8h277.3v21.8H495.8z" fill="#44b156" />
+                    <path d="M495.8 370.8h21.8v124.3h-21.8z" fill="#44b156" />
+                    <path d="M397.7 488.7l-15.4-15.4 113.5-102.5 15.4 15.4z" fill="#44b156" />
+                    <path d="M382.3 473.3h135.3v21.8H382.3z" fill="#44b156" />
+                    <path d="M382.3 479.7h21.8v348.6h-21.8zM404.1 806.6h370.4v21.8H404.1z" fill="#44b156" />
+                    <path d="M447.7 545.1h261.5v21.8H447.7zM447.7 610.5h261.5v21.8H447.7zM447.7 675.8h261.5v21.8H447.7z" fill="#6de87b" />
+                    <path d="M251.6 763h130.7v21.8H251.6z" fill="#44b156" />
+                    <path d="M251.6 240.1h21.8v544.7h-21.8zM687.3 240.1h21.8v130.7h-21.8zM273.4 240.1h108.9v21.8H273.4z" fill="#44b156" />
+                    <path d="M578.4 240.1h130.7v21.8H578.4zM360.5 196.5h21.8v108.9h-21.8zM382.3 283.7h196.1v21.8H382.3zM534.8 196.5h65.4v21.8h-65.4z" fill="#44b156" />
+                    <path d="M360.5 196.5h65.4v21.8h-65.4zM404.1 174.7h152.5v21.8H404.1zM578.4 196.5h21.8v108.9h-21.8z" fill="#44b156" />
+                  </svg>
+                </div>
+                <Card.Body className="d-flex flex-column justify-content-between align-items-center">
+                  <Card.Title className="fs-3 fw-bold">Pelaporan Masalah</Card.Title>
+                  <Card.Text>Pelaporan untuk penghuni kos jika ada kendala yang perlu disampaikan kepada pemilik rumah kos.</Card.Text>
+                  <a href={user ? (user?.role === "USER" ? "https://forms.gle/JEL88wRmr75YEt959" : "") : "/login"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
+                    Klik Disini
+                  </a>
+                </Card.Body>
+              </Card>
+              <Card className="shadow mx-4 card-style">
+                <div style={{ height: "200px" }}>
+                  <svg width="150px" height="150px" viewBox="-1.5 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" className="mt-4">
+                    <title>wallet</title>
+                    <desc>Created with Sketch Beta.</desc>
+                    <defs></defs>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                      <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-257.000000, -774.000000)" fill="#44b156">
+                        <path
+                          d="M285,793 L280,793 C279.448,793 279,793.448 279,794 L279,798 C279,798.553 279.448,799 280,799 L285,799 L285,804 C285,804.553 284.552,805 284,805 L260,805 C259.448,805 259,804.553 259,804 L259,785 L284,785 C284.552,785 285,785.447 285,786 L285,793 L285,793 Z M285,796 L285,797 L281,797 L281,796 L281,795 L285,795 L285,796 L285,796 Z M283,777 L283,783 L263.5,783 L283,777 L283,777 Z M285,783 L285,776 C285,775.447 284.764,775.141 284.25,774.938 C283.854,774.781 283.469,774.875 283,775 L257,783 L257,805 C257,806.104 257.896,807 259,807 L285,807 C286.104,807 287,806.104 287,805 L287,785 C287,783.896 286.104,783 285,783 L285,783 Z"
+                          id="wallet"
+                          sketch:type="MSShapeGroup"
+                        ></path>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <Card.Body className="d-flex flex-column justify-content-between align-items-center">
+                  <Card.Title className="fs-3 fw-bold">Bayar Sewa Bulanan</Card.Title>
+                  <Card.Text>Untuk penghuni rumah kost, silahkan bayarkan sewa bulanan anda disini.</Card.Text>
+                  <a href={user ? (user?.role === "USER" ? "/payments" : "") : "/login"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
+                    Klik Disini
+                  </a>
+                </Card.Body>
+              </Card>
+            </>
+          )}
           <Card className="shadow mx-4 card-style">
             <div style={{ height: "200px" }}>
               <svg width="140px" height="140px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-4">
@@ -153,31 +171,6 @@ export const Home = ({ user }) => {
           </Card>
           <Card className="shadow mx-4 card-style">
             <div style={{ height: "200px" }}>
-              <svg width="150px" height="150px" viewBox="-1.5 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" className="mt-4">
-                <title>wallet</title>
-                <desc>Created with Sketch Beta.</desc>
-                <defs></defs>
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                  <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-257.000000, -774.000000)" fill="#44b156">
-                    <path
-                      d="M285,793 L280,793 C279.448,793 279,793.448 279,794 L279,798 C279,798.553 279.448,799 280,799 L285,799 L285,804 C285,804.553 284.552,805 284,805 L260,805 C259.448,805 259,804.553 259,804 L259,785 L284,785 C284.552,785 285,785.447 285,786 L285,793 L285,793 Z M285,796 L285,797 L281,797 L281,796 L281,795 L285,795 L285,796 L285,796 Z M283,777 L283,783 L263.5,783 L283,777 L283,777 Z M285,783 L285,776 C285,775.447 284.764,775.141 284.25,774.938 C283.854,774.781 283.469,774.875 283,775 L257,783 L257,805 C257,806.104 257.896,807 259,807 L285,807 C286.104,807 287,806.104 287,805 L287,785 C287,783.896 286.104,783 285,783 L285,783 Z"
-                      id="wallet"
-                      sketch:type="MSShapeGroup"
-                    ></path>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <Card.Body className="d-flex flex-column justify-content-between align-items-center">
-              <Card.Title className="fs-3 fw-bold">Bayar Sewa Bulanan</Card.Title>
-              <Card.Text>Untuk penghuni rumah kost, silahkan bayarkan sewa bulanan anda disini.</Card.Text>
-              <a href={user ? (user?.role === "USER" ? "/payments" : "") : "/login"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
-                Klik Disini
-              </a>
-            </Card.Body>
-          </Card>
-          <Card className="shadow mx-4 card-style">
-            <div style={{ height: "200px" }}>
               <svg width="150px" height="150px" viewBox="0 -2 1028 1028" fill="#44b156" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" className="mt-5">
                 <path
                   d="M91.448447 896c-50.086957 0-91.428571-40.546584-91.428571-91.428571V91.428571C0.019876 41.341615 40.56646 0 91.448447 0h671.006211c50.086957 0 91.428571 40.546584 91.428572 91.428571v337.093168l-3.180124-0.795031c-13.515528-3.975155-26.236025-5.565217-40.546584-5.565217h-0.795031l-0.795031-2.385093h-2.385094V91.428571c0-23.055901-20.670807-43.726708-43.726708-43.726708H91.448447c-23.055901 0-43.726708 20.670807-43.726708 43.726708v713.142858c0 23.055901 20.670807 43.726708 43.726708 43.726708h352.198758l0.795031 0.795031c8.745342 11.925466 3.975155 20.670807 0.795031 27.031056-3.180124 5.565217-4.770186 9.540373 0.795031 15.10559l4.770186 4.770186H91.448447z"
@@ -200,7 +193,7 @@ export const Home = ({ user }) => {
             <Card.Body className="d-flex flex-column justify-content-between align-items-center">
               <Card.Title className="fs-3 fw-bold">Pemesanan Kamar</Card.Title>
               <Card.Text>Fitur ini berisikan kumpulan kamar yang tersedia untuk dipesan.</Card.Text>
-              <a href={user ? (user?.role === "USER" ? "/rent" : "") : "/login"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
+              <a href={"/rent"} className={`btn btn-success fw-bold ${user?.role === "ADMIN" ? "invisible" : ""}`}>
                 Klik Disini
               </a>
             </Card.Body>
